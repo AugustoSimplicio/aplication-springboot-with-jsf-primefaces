@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<body>
+	<ui:composition template="/templates/template.xhtml">
+		<ui:define name="content">
+			<p:messages id="messages" showDetail="true" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+			<p:panel header="Buscar Fundo" style="width:96%">
+				<h:form id="frm-buscar">
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Nome:" />
+						<p:inputText id="nome" value="#{fundoMB.filtroInputNome}"
+							label="Nome do Fundo">
+						</p:inputText>
+						<h:panelGrid columns="3">
+							<p:commandButton value="Buscar" id="button" update="@all"
+								action="#{fundoMB.buscar}" />
+							<p:commandButton value="Novo" id="buttonNovo" immediate="true"
+								update="@all" action="#{fundoMB.novo}" />
+						</h:panelGrid>
+					</h:panelGrid>
+
+					<p:panel header="Resultado" style="width:100%; text-align: center"
+						rendered="#{fundoMB.exibeResultadoConsulta}">
+						<p:dataTable var="fundo" value="#{fundoMB.resultados}" rows="10"
+							paginator="true"
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15">
+							<p:column headerText="ID">
+								<h:outputText value="#{fundo.id}" />
+							</p:column>
+							<p:column headerText="Nome">
+								<h:outputText value="#{fundo.nome}" />
+							</p:column>
+							<p:column headerText="#">
+								<p:commandButton value="Editar" id="button-editar"
+									action="#{fundoMB.chamarEdicao(fundo)}" update="@all" />
+							</p:column>
+							<p:column headerText="#">
+								<p:commandButton value="Deletar	" id="button-deletar"
+									action="#{fundoMB.deletar(fundo)}" update="@all" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+				</h:form>
+			</p:panel>
+			<h:form id="frm">
+				<p:panel header="Cadastro" style="width:96%; text-align: center"
+					rendered="#{fundoMB.mostrarPanelCadastroEdicao}">
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Nome:" />
+						<p:inputText id="nome" value="#{fundoMB.model.nome}"
+							required="true" label="Nome Completo">
+							<f:validateLength minimum="3" />
+						</p:inputText>
+						<p:commandButton value="Salvar" id="button-editar"
+							action="#{fundoMB.botao}" update="@all" />
+						<p:commandButton value="Cancelar" id="buttonCancelar"
+							immediate="true" update="@all" action="#{fundoMB.cancelar}" />
+						<p:commandButton value="Limpar" ajax="true" immediate="true"
+							type="reset" />
+					</h:panelGrid>
+				</p:panel>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

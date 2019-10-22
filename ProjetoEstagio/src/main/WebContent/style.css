@@ -1,0 +1,13 @@
+body {
+	display:grid;
+	grid-template-columns: 2fr 5fr;
+	grid-template-rows: auto auto;
+	grid-template-areas: 
+	"left right";
+}
+div.left {
+	grid-area:left;
+}
+div.right {
+	grid-area:right;
+}
