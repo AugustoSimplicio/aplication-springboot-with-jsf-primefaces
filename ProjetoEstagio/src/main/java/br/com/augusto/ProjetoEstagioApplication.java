@@ -43,9 +43,6 @@ public class ProjetoEstagioApplication extends SpringBootServletInitializer impl
 	public ServletContextInitializer servletContextInitializer() {
 		return sc -> {
 			sc.setInitParameter("APP_NAME", "ProjetoEstagio");
-			sc.setInitParameter("com.sun.faces.expressionFactory",
-					"org.springframework.web.jsf.el.SpringBeanFacesElResolver");
-//	            sc.setInitParameter("facelets.DEVELOPMENT", Boolean.TRUE.toString());
 			sc.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
 			sc.setInitParameter("javax.faces.PROJECT_STAGE", "Development");
 			sc.setInitParameter("javax.faces.DEFAULT_SUFFIX", ".xhtml");
@@ -56,7 +53,6 @@ public class ProjetoEstagioApplication extends SpringBootServletInitializer impl
 			sc.setInitParameter("primefaces.CLIENT_SIDE_VALIDATION", Boolean.TRUE.toString());
 			sc.setInitParameter("primefaces.FONT_AWESOME", Boolean.TRUE.toString());
 
-			sc.addListener(new ContextLoaderListener());
 			sc.addListener(new RequestContextListener());
 
 			sc.addFilter("openSessionInView", new OpenEntityManagerInViewFilter()).addMappingForUrlPatterns(null, false,
